@@ -24,38 +24,44 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       backgroundColor: Colors.white70,
       appBar: AppBar(title: Text(widget.movieItem.title),),
-      body: Stack(
+      body: Column(
         children: <Widget>[
-          Container(
-            height: 200,
-            width: MediaQuery.of(context).size.width,
-            child: widget.movieItem.backdropPath != null ?
-            Image.network(imageUrl + widget.movieItem.backdropPath,fit: BoxFit.cover,) : Image.network(errorImage,fit: BoxFit.cover,)
-          ),
-          ///gambar poster
-          Positioned(
-            left: 10,
-            top: 50,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(10))),
-              height: 100,
-              width: 100,
-              child: widget.movieItem
-                  .posterPath !=
-                  null
-                  ? ClipRRect(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(10)),
-                  child: Image.network(
-                    imageUrl + widget.movieItem.posterPath,
-                    fit: BoxFit.cover,
-                  ))
-                  : Image.network(errorImage),
-            ),
-          ),
+          Stack(
+            children: <Widget>[
+              Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                child: widget.movieItem.backdropPath != null ?
+                Image.network(imageUrl + widget.movieItem.backdropPath,fit: BoxFit.cover,) : Image.network(errorImage,fit: BoxFit.cover,)
+              ),
+              ///gambar poster
+              Positioned(
+                left: 10,
+                top: 50,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(10))),
+                  height: 100,
+                  width: 100,
+                  child: widget.movieItem
+                      .posterPath !=
+                      null
+                      ? ClipRRect(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(10)),
+                      child: Image.network(
+                        imageUrl + widget.movieItem.posterPath,
+                        fit: BoxFit.cover,
+                      ))
+                      : Image.network(errorImage),
+                ),
+              ),
 
+            ],
+          ),
+          SizedBox(height: 50,),
+          Text(widget.movieItem.overview)
         ],
       ),
     );

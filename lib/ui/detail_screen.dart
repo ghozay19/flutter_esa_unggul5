@@ -14,10 +14,50 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+
+  var imageUrl = 'http://image.tmdb.org/t/p/w500';
+  var errorImage =
+      "https://www.simscale.com/forum/uploads/default/original/3X/5/9/59c3686cc01056f418145aeede2685600647cf8c.jpg";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white70,
       appBar: AppBar(title: Text(widget.movieItem.title),),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            height: 200,
+            width: MediaQuery.of(context).size.width,
+            child: widget.movieItem.backdropPath != null ?
+            Image.network(imageUrl + widget.movieItem.backdropPath,fit: BoxFit.cover,) : Image.network(errorImage,fit: BoxFit.cover,)
+          ),
+          ///gambar poster
+          Positioned(
+            left: 10,
+            top: 50,
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10))),
+              height: 100,
+              width: 100,
+              child: widget.movieItem
+                  .posterPath !=
+                  null
+                  ? ClipRRect(
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10)),
+                  child: Image.network(
+                    imageUrl + widget.movieItem.posterPath,
+                    fit: BoxFit.cover,
+                  ))
+                  : Image.network(errorImage),
+            ),
+          ),
+
+        ],
+      ),
     );
   }
 }
